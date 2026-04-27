@@ -1,8 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname, useRouter } from "next/navigation";
-import { createBrowserClient } from "@supabase/ssr";
+import { usePathname } from "next/navigation";
 
 const navLinks = [
   { href: "/", label: "Dashboard" },
@@ -13,17 +12,6 @@ const navLinks = [
 
 export default function AdminNav() {
   const pathname = usePathname();
-  const router = useRouter();
-
-  const supabase = createBrowserClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-  );
-
-  const handleSignOut = async () => {
-    await supabase.auth.signOut();
-    router.push("/login");
-  };
 
   const isActive = (href: string) =>
     href === "/" ? pathname === "/" : pathname.startsWith(href);
@@ -55,25 +43,11 @@ export default function AdminNav() {
           ))}
         </nav>
 
-        <div className="px-3 py-3 border-t border-slate-800">
-          <button
-            onClick={handleSignOut}
-            className="w-full text-left px-3 py-2 rounded-md text-[13px] font-medium text-slate-400 hover:text-slate-200 hover:bg-slate-800/50 transition-colors"
-          >
-            Sign out
-          </button>
-        </div>
       </aside>
 
       {/* Mobile: top header */}
-      <header className="md:hidden fixed top-0 left-0 right-0 z-40 bg-slate-900 h-12 px-4 flex items-center justify-between border-b border-slate-800">
+      <header className="md:hidden fixed top-0 left-0 right-0 z-40 bg-slate-900 h-12 px-4 flex items-center border-b border-slate-800">
         <span className="text-white text-sm font-semibold">{currentLabel}</span>
-        <button
-          onClick={handleSignOut}
-          className="text-slate-400 hover:text-white text-xs font-medium transition-colors"
-        >
-          Sign out
-        </button>
       </header>
 
       {/* Mobile: bottom nav */}
