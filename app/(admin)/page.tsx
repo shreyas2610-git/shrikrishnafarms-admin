@@ -3,6 +3,8 @@ import Link from "next/link";
 import InlineStatus from "@/components/InlineStatus";
 import PaymentBadge from "@/components/PaymentBadge";
 
+export const dynamic = "force-dynamic";
+
 type PaymentConfRow = { id: string; utr_number: string; screenshot_url: string; verified: boolean };
 
 export default async function DashboardPage() {
